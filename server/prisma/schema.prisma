@@ -12,3 +12,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model capitals {
+  id      Int     @id @default(autoincrement())
+  country String  @db.VarChar(255)
+  capital String  @db.VarChar(255)
+  flagID  Int     @unique
+  flag    flags   @relation(fields: [flagID], references: [id])
+}
+
+model flags {
+  id        Int       @id @default(autoincrement())
+  country   String    @db.VarChar(255)
+  flag      String    @db.VarChar(255)
+  capitalID capitals?
+}
