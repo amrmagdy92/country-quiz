@@ -10,6 +10,9 @@ import expressRateLimiter from "express-rate-limit"
 // Environment configuration
 import dotenv from "dotenv"
 
+// Database Singleton
+import initiateDatabase from "./helpers/db.helper"
+
 // Request handlers
 import bodyParser from "body-parser"
 import compress from "compression"
@@ -46,6 +49,21 @@ const configuredRateLimiter = expressRateLimiter({
         return req.ip
     }
 })
+
+// Database connection
+initiateDatabase(
+    process.env.DB_HOST.toString(),
+    process.env.DB_DIALECT.toString(),
+    process.env.DB_NAME.toString(),
+    process.env.DB_USER.toString(),
+    process.env.DB_PASS.toString()
+).authenticate()
+    .then( () => {
+        console.log("Successfully connected to postgres")
+    })
+    .catch( err => {
+        console.log(`Unable to connect to database:\n${err}`)
+    })
 
 // App initialization
 const app = express()
