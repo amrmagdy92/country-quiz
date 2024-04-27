@@ -11,7 +11,6 @@ import expressRateLimiter from "express-rate-limit"
 import dotenv from "dotenv"
 
 // Database Singleton
-import {sequelize, getErrorMessage} from "./helpers/db.helper"
 
 // Request handlers
 import bodyParser from "body-parser"
@@ -51,13 +50,6 @@ const configuredRateLimiter = expressRateLimiter({
 })
 
 // Database connection
-sequelize.authenticate()
-    .then( () => {
-        console.log("Successfully connected to postgres")
-    })
-    .catch( err => {
-        console.log(`Unable to connect to database:\n${getErrorMessage(err)}`)
-    })
 
 // App initialization
 const app = express()
