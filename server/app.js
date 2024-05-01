@@ -17,6 +17,7 @@ import bodyParser from "body-parser"
 import compress from "compression"
 
 // Routers
+import questionsRouter from "./routers/questions.router"
 
 // app configuration
 dotenv.config()
@@ -68,6 +69,7 @@ app.get('/', (req, res) => {
 })
 
 // Routes
+app.use("/api/v1/questions", questionsRouter)
 
 // Export
 export default app
