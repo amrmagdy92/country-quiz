@@ -1,12 +1,12 @@
 import { Router } from "express"
 
-import { tableMetaData, getCountryAndCapitalByID } from "../controllers/questions.controller"
+import { initiateVariables, getCountryAndCapitalByID } from "../controllers/questions.controller"
 
 const router = Router()
 
 router.route("/")
     .get((request, response) => {
-        tableMetaData()
+        initiateVariables()
         .then( result => {
             response.status(result.code).json({ msg: result.msg })
         })
