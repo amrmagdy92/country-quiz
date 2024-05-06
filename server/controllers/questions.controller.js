@@ -29,13 +29,16 @@ const getCountryAndCapitalByID = (rowID) => {
         })
     })
 }
-const tableMetaData = () => {
+const initiateVariables = () => {
     return new Promise((resolve, reject) => {
         prisma.capitals.count()
         .then( count => {
             resolve({
                 code: 200,
-                msg: count
+                msg: {
+                    maxCount: count,
+                    quizQuestions: process.env.QUIZ_QUESTIONS_COUNT
+                }
             })
         }).catch( err => {
             reject({
@@ -48,5 +51,5 @@ const tableMetaData = () => {
 
 export {
     getCountryAndCapitalByID,
-    tableMetaData
+    initiateVariables
 }
