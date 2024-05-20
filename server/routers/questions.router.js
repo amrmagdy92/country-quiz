@@ -19,11 +19,18 @@ router.route("/capital")
     .get((request, response) => {
         getCountryAndCapitalByID(request.query.country_id)
         .then( result => {
-            response.status(result.code).json({ msg: result.msg })
+            response.status(result.code).render('index.ejs', {
+                question: {
+                    country: result.msg.country
+                }
+            })
         })
         .catch( err => {
             response.status(err.code).json({ msg: err.msg })
         })
+    })
+    .post((request, response) => {
+        // render button
     })
 
 export default router
